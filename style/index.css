@@ -1,0 +1,47 @@
+#main
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -180px;
+	font-size: 16px;
+	font-family: "Verdana";
+}
+
+#suggestions
+{
+	background-color:#FFFFFF;
+	margin: 0px;
+	padding:0px;
+	border-width: 1px;
+	border-top-width: 0px;
+	border-color: #AAAAAA;
+	border-style:none;
+	width:399px;
+	box-shadow: 0px 0px 2px #888888;
+	font-family: "Verdana";
+}
+
+#add
+{
+	margin: 0px;
+	padding:0px;
+	width: 100%;
+	font-size: 20px;
+	font-family: "Verdana";
+}
+
+#addform
+{
+	margin:0px;
+	padding:0px;
+	width:400px;
+	font-family: "Verdana";
+}
+
+td.sug-search
+{
+	width:100%;
+	font-family: "Verdana";
+}
