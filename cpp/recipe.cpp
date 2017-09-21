@@ -781,35 +781,35 @@ query_recipe database::get_query_recipe(vector<uint16_t> selected, uint32_t offs
 
 void database::suggest(string search)
 {
-        uint32_t step_size = 0;
-        uint32_t num_entries = 0;
-        char c;
-        int step = 0;
-        int count = 0;
+	uint32_t step_size = 0;
+	uint32_t num_entries = 0;
+	char c;
+	int step = 0;
+	int count = 0;
 
-        fseek(fing, 0, SEEK_SET);
-        fread(&num_entries, 4, 1, fing);
-        fread(&step_size, 4, 1, fing);
+	fseek(fing, 0, SEEK_SET);
+	fread(&num_entries, 4, 1, fing);
+	fread(&step_size, 4, 1, fing);
 
-        for (size_t i = 0; i < num_entries && step < 2; i++)
-        {
-                string found = "";
-                fseek(fing, i*step_size+8, SEEK_SET);
-                while (found.length() < step_size && !feof(fing) && (c = fgetc(fing)) != '\0')
-                        found += c;
+	for (size_t i = 0; i < num_entries && step < 2; i++)
+	{
+		string found = "";
+		fseek(fing, i*step_size+8, SEEK_SET);
+		while (found.length() < step_size && !feof(fing) && (c = fgetc(fing)) != '\0')
+			found += c;
 
-                if (strncmp(found.c_str(), search.c_str(), search.length()) == 0)
-                {
-                        if (step == 0)
-                                step++;
-                        printf("<tr><td onclick=\"recipe.add(%d);$(\'#suggestions\').html(\'\');$(\'#suggestions\').css(\'border-style\', \'none\');$(\'#add\').val(\'\');\" style=\"cursor: pointer;\" class=\"sug-search\" id=\"suggest%d\">%s</td><tr>", i, count, found.c_str());
-                        count++;
-                        if (count >= 10)
-                                return;
-                }
-                else if (step > 1)
-                        step++;
-        }
+		if (strncmp(found.c_str(), search.c_str(), search.length()) == 0)
+		{
+			if (step == 0)
+				step++;
+			printf("<tr><td onclick=\"recipe.add(%d);$(\'#suggestions\').html(\'\');$(\'#suggestions\').css(\'border-style\', \'none\');$(\'#add\').val(\'\');\" style=\"cursor: pointer;\" class=\"sug-search\" id=\"suggest%d\">%s</td><tr>", i, count, found.c_str());
+			count++;
+			if (count >= 10)
+				return;
+		}
+		else if (step > 1)
+			step++;
+	}
 }
 
 void database::query(vector<uint16_t> selected, list<query_recipe> &recipe_scores)
@@ -1009,32 +1009,32 @@ string parse_ing(string ing)
 	ing = ltrim(rtrim(ing));
 
 	if ((sch = ing.find(", or more")) != ing.npos || (sch = ing.find(" or more")) != ing.npos ||
-		(sch = ing.find(", plus ")) != ing.npos || (sch = ing.find(" plus ")) != ing.npos ||
-		(sch = ing.find(", or to more")) != ing.npos || (sch = ing.find(" or to more")) != ing.npos ||
-		(sch = ing.find(", or to taste")) != ing.npos || (sch = ing.find(" or to taste")) != ing.npos ||
-		(sch = ing.find(", or as desired")) != ing.npos || (sch = ing.find(" or as desired")) != ing.npos ||
-		(sch = ing.find(", or as needed")) != ing.npos || (sch = ing.find(" or as needed")) != ing.npos ||
-		(sch = ing.find(", more")) != ing.npos)
-			ing = ing.substr(0, sch);
+			(sch = ing.find(", plus ")) != ing.npos || (sch = ing.find(" plus ")) != ing.npos ||
+			(sch = ing.find(", or to more")) != ing.npos || (sch = ing.find(" or to more")) != ing.npos ||
+			(sch = ing.find(", or to taste")) != ing.npos || (sch = ing.find(" or to taste")) != ing.npos ||
+			(sch = ing.find(", or as desired")) != ing.npos || (sch = ing.find(" or as desired")) != ing.npos ||
+			(sch = ing.find(", or as needed")) != ing.npos || (sch = ing.find(" or as needed")) != ing.npos ||
+			(sch = ing.find(", more")) != ing.npos)
+		ing = ing.substr(0, sch);
 
 	// softened creamed trimmed crumbled melted grated cooled cubed julienned split toasted mashed squeezed cooked rinsed dried boiled skined deboned seeded halved chilled thawed divided cleaned sectioned peeled cored cut drained pitted diced chopped sliced
 	if ((sch = ing.find(", and cut in")) != ing.npos || (sch = ing.find(" and cut in")) != ing.npos ||
-		(sch = ing.find(", cut in")) != ing.npos || (sch = ing.find(" cut in")) != ing.npos)
-			ing = ing.substr(0, sch);
+			(sch = ing.find(", cut in")) != ing.npos || (sch = ing.find(" cut in")) != ing.npos)
+		ing = ing.substr(0, sch);
 
 	/*if (ing.find("salmon") != ing.npos)
-	{
-			if (ing.find("fillet") != ing.npos && ing.find("steak") != ing.npos)
-					return "salmon";
-			else if (ing.find("fillet") != ing.npos)
-					return "salmon fillet";
-			else if (ing.find("steak") != ing.npos)
-					return "salmon steak";
+		{
+		if (ing.find("fillet") != ing.npos && ing.find("steak") != ing.npos)
+		return "salmon";
+		else if (ing.find("fillet") != ing.npos)
+		return "salmon fillet";
+		else if (ing.find("steak") != ing.npos)
+		return "salmon steak";
 
-			else if (ing.find("smoked") != ing.npos)
-			{
-	//              cout << ing << endl;
-			}
+		else if (ing.find("smoked") != ing.npos)
+		{
+	//	      cout << ing << endl;
+	}
 	}*/
 
 	//if ((sch = ing.find(", peeled ")) != ing.npos || (sch = ing.find(" peeled ")) != ing.npos)
@@ -1044,27 +1044,27 @@ string parse_ing(string ing)
 
 
 	if (ing.find("chicken") != ing.npos && ing.find("turkey") == ing.npos && ing.find("beef") == ing.npos &&
-		ing.find("vegetable") == ing.npos && ing.find("ham") == ing.npos && ing.find("lam") == ing.npos &&
-		ing.find("pork") == ing.npos)
+			ing.find("vegetable") == ing.npos && ing.find("ham") == ing.npos && ing.find("lam") == ing.npos &&
+			ing.find("pork") == ing.npos)
 	{
-			if (ing.find("deli") != ing.npos)
-					return "chicken cold cuts";
-			else if (ing.find("ground") != ing.npos)
-					return "ground chicken";
-			else if (((ing.find("breast") != ing.npos) + (ing.find("thigh") != ing.npos) +
-					  (ing.find("drumstick") != ing.npos) + (ing.find("wing") != ing.npos) +
-					  (ing.find("leg") != ing.npos)) > 1)
-					return "chicken";
-			else if (ing.find("breast") != ing.npos)
-					return "chicken breast";
-			else if (ing.find("thigh") != ing.npos)
-					return "chicken thighs";
-			else if (ing.find("drumstick") != ing.npos || ing.find("leg") != ing.npos)
-					return "chicken legs";
-			else if (ing.find("wing") != ing.npos)
-					return "chicken wings";
-			else if (ing.find("broth") != ing.npos || ing.find("stock") != ing.npos)
-			{}      //cout << ing << endl;
+		if (ing.find("deli") != ing.npos)
+			return "chicken cold cuts";
+		else if (ing.find("ground") != ing.npos)
+			return "ground chicken";
+		else if (((ing.find("breast") != ing.npos) + (ing.find("thigh") != ing.npos) +
+					(ing.find("drumstick") != ing.npos) + (ing.find("wing") != ing.npos) +
+					(ing.find("leg") != ing.npos)) > 1)
+			return "chicken";
+		else if (ing.find("breast") != ing.npos)
+			return "chicken breast";
+		else if (ing.find("thigh") != ing.npos)
+			return "chicken thighs";
+		else if (ing.find("drumstick") != ing.npos || ing.find("leg") != ing.npos)
+			return "chicken legs";
+		else if (ing.find("wing") != ing.npos)
+			return "chicken wings";
+		else if (ing.find("broth") != ing.npos || ing.find("stock") != ing.npos)
+		{}      //cout << ing << endl;
 	}
 
 	return ing;
